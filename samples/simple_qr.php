@@ -1,5 +1,6 @@
 <?php
-   require_once("../qrlib.php");
+   require_once("../lib/qrlib.php");
    
-   QRcode::png('some othertext 1234'); // creates code image and outputs it directly into browser
+   // creates code image and outputs it directly into browser
+   QRcode::png('This is a sample content'); 
    
