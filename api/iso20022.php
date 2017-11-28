@@ -11,7 +11,7 @@
     }
     else
     {
-		$iban = "CH1212341234123412349";
+		$iban = "";
 	}
 	if (isset($_GET['receiver_name']))
     {	
@@ -206,17 +206,48 @@
 		$message = "";
 	}
 	
+	// create floating text content
+	$content = 	"SPC" . PHP_EOL . 					// fixed code
+				"0100" . PHP_EOL . 					// Version
+				"1" . PHP_EOL . 					// Coding
+				$iban . PHP_EOL .					// destination account 
+				$receiver_name . PHP_EOL . 			// receiver name
+				$receiver_street . PHP_EOL . 		// receiver street
+				$receiver_number . PHP_EOL . 		// receiver house number
+				$receiver_pincode . PHP_EOL . 		// receiver postal code
+				$receiver_town . PHP_EOL . 			// receiver town
+				$receiver_country . PHP_EOL . 		// receiver country
+				$final_receiver_name . PHP_EOL . 	// final receiver name
+				$final_receiver_street . PHP_EOL . 	// final receiver street
+				$final_receiver_number . PHP_EOL . 	// final receiver house number
+				$final_receiver_pincode . PHP_EOL .	// final receiver postal code
+				$final_receiver_town . PHP_EOL . 	// final receiver town
+				$final_receiver_country . PHP_EOL . // final receiver country 
+				$amount . PHP_EOL . 				// payment details: amount
+				$currency . PHP_EOL . 				// payment details: currency
+				$due_date . PHP_EOL . 				// payment details: due date
+				$payer_name . PHP_EOL . 			// payer name
+				$payer_street . PHP_EOL . 			// payer street
+				$payer_number . PHP_EOL . 			// payer house number
+				$payer_pincode . PHP_EOL . 			// payer postal code
+				$payer_town . PHP_EOL . 			// payer town
+				$payer_country . PHP_EOL . 			// payer country
+				$reference_type . PHP_EOL . 		// reference type: QRR, SCOR or NON
+				$reference . PHP_EOL . 				// reference 
+				$message . PHP_EOL; 				// reference message
+
+	/*
 	// create xml content
 	$content = "<QRCH>" .
-	   "<Header>" . /* header */
+	   "<Header>" . // header 
 	       "<QRType>SPC</QRType>" .
 	       "<Version>0100</Version>" .
 	       "<Coding>1</Coding>" .
 	   "</Header>" .
-	   "<CdtrInf>" . /* destination account */
+	   "<CdtrInf>" . // destination account 
 	       "<IBAN>" . $iban . "</IBAN>" .
 	   "</CdtrInf>" .
-	   "<Cdtr>" . /* receiver */
+	   "<Cdtr>" . // receiver 
 		   "<Name>" . $receiver_name . "</Name>" .
 		   "<StrtNm>" . $receiver_street . "</StrtNm>" .
 		   "<BldgNb>" . $receiver_number . "</BldgNb>" .
@@ -224,7 +255,7 @@
 		   "<TwnNm>" . $receiver_town . "</TwnNm>" .
 		   "<Ctry>" . $receiver_country . "</Ctry>" .
 	   "</Cdtr>" .
-	   "<UltmtCdtr>" . /* final receiver */
+	   "<UltmtCdtr>" . // final receiver 
 		   "<Name>" . $final_receiver_name . "</Name>" .
 		   "<StrtNm>" . $final_receiver_street . "</StrtNm>" .
 		   "<BldgNb>" . $final_receiver_number . "</BldgNb>" .
@@ -232,12 +263,12 @@
 		   "<TwnNm>" . $final_receiver_town . "</TwnNm>" .
 		   "<Ctry>" . $final_receiver_country . "</Ctry>" .	   
 	   "</UltmtCdtr>" .
-	   "<CcyAmtDate>" . /* payment details */
+	   "<CcyAmtDate>" . // payment details 
 	       "<Amt>" . $amount . "</Amt>" .
 	       "<Ccy>" . $currency . "</Ccy>" . 
 	       "<ReqdExctnDt>" . $due_date . "</ReqdExctnDt>" .
 	   "</CcyAmtDate>" .
-	   "<UltmtDbtr>" . /* payer */
+	   "<UltmtDbtr>" . // payer
 	   	   "<Name>" . $payer_name . "</Name>" .
 		   "<StrtNm>" . $payer_street . "</StrtNm>" .
 		   "<BldgNb>" . $payer_number . "</BldgNb>" .
@@ -245,15 +276,16 @@
 		   "<TwnNm>" . $payer_town . "</TwnNm>" .
 		   "<Ctry>" . $payer_country . "</Ctry>" .
 	   "</UltmtDbtr>" . 
-	   "<RmtInf>" . /* reference */
-	       "<Tp>" . $reference_type . "</Tp>" . /* QRR, SCOR or NON */
+	   "<RmtInf>" . // reference 
+	       "<Tp>" . $reference_type . "</Tp>" . // QRR, SCOR or NON
 	       "<Ref>" . $reference . "</Ref>" .
 	       "<Ustrd>" . $message . "</Ustrd>" .
 	   "</RmtInf>" .
-	   "<AltPmtInf>" . /* alternative procedure */
+	   "<AltPmtInf>" . // alternative procedure 
 	       "<AltPmt></AltPmt>" .
 	   "</AltPmtInf>" .
 	   "</QRCH>";
+	   */
 	   
     // create QR code first through the API
     $src = HOST . '/phpqrcode/api/qrcode.php?content=' . $content . '&ecc=M&size=10&frame=2';
