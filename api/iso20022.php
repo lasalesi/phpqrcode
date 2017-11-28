@@ -1,10 +1,6 @@
 <?php
 	// make sure nothing is before the php tag
-	
-	// we need to be sure our script does not output anything!!!
-    // otherwise it will break up PNG binary!  
-    ob_start();
-    
+	    
 	// load configuration
 	include_once("config.php");
 	
@@ -285,6 +281,3 @@
 	// free memory
 	imagedestroy($qrcode);
 	imagedestroy($stamp);
-	
-	// finalise output
-	ob_end_clean();
