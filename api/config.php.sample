@@ -1,0 +1,4 @@
+<?php
+	// define configuration settings
+	define("HOST", "https://www.example.com");
+	
