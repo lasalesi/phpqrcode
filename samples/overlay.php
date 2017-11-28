@@ -1,10 +1,11 @@
- <?php
-    // load the QR code library
-    require_once('../lib/qrlib.php');
-    
-    // create QR code first
-    $content = "Test content";
-    $qrcode = imagecreatefrompng("../api/qrcode.php?content=' . $content . '"); 
+<?php
+	// make sure nothing is before the php tag
+	
+    // create QR code first through the API
+    $content = "Test";
+    $host = "www.example.com";
+    $src = 'https://' . $host . '/phpqrcode/api/qrcode.php?content=' . $content;
+    $qrcode = imagecreatefromstring(file_get_contents($src));
     
     // load the stamp
     $stamp = imagecreatefrompng("libracore_logo_small.png");
@@ -16,15 +17,14 @@
     $margin_bottom = 10;
     
     // merge stamp onto QR code
-    imagecopymerge($qrcode, $stamp, imagesx($qrcode) - $width - $margin_right,
-		imagesy($qrcode) - $height - $margin_bottom, 0, 0,
-		imagesx($stamp), imagesy($stamp), 0);
-		
+	$pos_x = (imagesx($qrcode) / 2) - ($width / 2);
+	$pos_y = (imagesy($qrcode) / 2) - ($height / 2);
+	imagecopymerge($qrcode, $stamp, $pos_x, $pos_y, 0, 0,
+		imagesx($stamp), imagesy($stamp), 100);
+			
 	// return image to browser
 	header('Content-Type: image/png');
 	imagepng($qrcode);
-	
-	//fpassthru($qrcode);
 	
 	// free memory
 	imagedestroy($qrcode);
