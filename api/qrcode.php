@@ -12,7 +12,7 @@
     // we need to be sure our script does not output anything!!!
     // otherwise it will break up PNG binary!  
     ob_start("callback");
-        
+ 
     // read parameters, remember to sanitize that - it is user input!
     if (isset($_GET['content']))
     {
@@ -53,6 +53,8 @@
     // end of processing here
     $debugLog = ob_get_contents();
     ob_end_clean();
-    
+
     // outputs image directly into browser, as PNG stream
     QRcode::png($content, false, $ecc, $size, $frame); 
+
+    

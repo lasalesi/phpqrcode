@@ -1,26 +1,29 @@
 <?php
 	// make sure nothing is before the php tag
-	    
+	// load QR code library
+	require_once('../lib/qrlib.php');
+
 	// load configuration
 	include_once("config.php");
-	
+
 	// collect parameters
-	if (isset($_GET['iban']))
-    {
-		$iban = $_GET['iban'];
-    }
-    else
-    {
-		$iban = "";
+	if (isset($_POST['iban'])) {
+		$iban = $_POST['iban'];
 	}
-	if (isset($_GET['receiver_name']))
-    {	
-		$receiver_name = $_GET['receiver_name'];
-    }
-    else
-    {
+	else {
+		if (isset($_GET['iban'])) {
+			$iban = $_GET['iban'];
+		} else {
+			$iban = "";
+		}
+	}
+
+	if (isset($_GET['receiver_name'])) {
+		$receiver_name = str_replace("_", " ", $_GET['receiver_name']);
+	} else {
 		$receiver_name = "";
 	}
+
 	if (isset($_GET['receiver_street']))
     {
 		$receiver_street = $_GET['receiver_street'];
@@ -287,10 +290,13 @@
 	   "</QRCH>";
 	   */
 	   
-    // create QR code first through the API
-    $src = HOST . '/phpqrcode/api/qrcode.php?content=' . $content . '&ecc=M&size=10&frame=2';
-    $qrcode = imagecreatefromstring(file_get_contents($src));
-    
+    // create QR code first through in a temporary file
+    $fileName = 'iso20022-' . date('Y-m-d-H-i-s') . '-' . md5($content) . '.png';
+    $pngAbsoluteFilePath = TEMPDIR . $fileName;
+    $urlRelativeFilePath = URLRELDIR . $fileName;
+    QRcode::png($content, $pngAbsoluteFilePath, "M", 10, 2);
+    $qrcode = imagecreatefrompng($pngAbsoluteFilePath);
+
     // load the stamp
     $stamp = imagecreatefrompng("CH-Kreuz_7mm.png");
     
