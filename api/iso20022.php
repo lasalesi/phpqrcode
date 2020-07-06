@@ -211,15 +211,17 @@
 	
 	// create floating text content
 	$content = 	"SPC" . PHP_EOL . 					// fixed code
-				"0100" . PHP_EOL . 					// Version
+				"0200" . PHP_EOL . 					// Version
 				"1" . PHP_EOL . 					// Coding
 				$iban . PHP_EOL .					// destination account 
+                "S" . PHP_EOL .                     // receiver address type: S (structured)
 				$receiver_name . PHP_EOL . 			// receiver name
 				$receiver_street . PHP_EOL . 		// receiver street
 				$receiver_number . PHP_EOL . 		// receiver house number
 				$receiver_pincode . PHP_EOL . 		// receiver postal code
 				$receiver_town . PHP_EOL . 			// receiver town
 				$receiver_country . PHP_EOL . 		// receiver country
+                "S" . PHP_EOL .                     // final receiver address type: S (structured)
 				$final_receiver_name . PHP_EOL . 	// final receiver name
 				$final_receiver_street . PHP_EOL . 	// final receiver street
 				$final_receiver_number . PHP_EOL . 	// final receiver house number
@@ -228,7 +230,8 @@
 				$final_receiver_country . PHP_EOL . // final receiver country 
 				$amount . PHP_EOL . 				// payment details: amount
 				$currency . PHP_EOL . 				// payment details: currency
-				$due_date . PHP_EOL . 				// payment details: due date
+				// $due_date . PHP_EOL . 			// payment details: due date (dropped in v2)
+                "S" . PHP_EOL .                     // payer address type: S (structured)
 				$payer_name . PHP_EOL . 			// payer name
 				$payer_street . PHP_EOL . 			// payer street
 				$payer_number . PHP_EOL . 			// payer house number
@@ -236,8 +239,9 @@
 				$payer_town . PHP_EOL . 			// payer town
 				$payer_country . PHP_EOL . 			// payer country
 				$reference_type . PHP_EOL . 		// reference type: QRR, SCOR or NON
-				$reference . PHP_EOL . 				// reference 
-				$message . PHP_EOL; 				// reference message
+				$reference . PHP_EOL . 				// reference (SCOR: see ISO 11649)
+				$message . PHP_EOL . 				// reference message
+                "EPD";                              // end of message tag
 
 	/*
 	// create xml content
