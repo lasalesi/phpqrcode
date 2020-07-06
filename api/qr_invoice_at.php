@@ -17,6 +17,7 @@
 			$iban = "";
 		}
 	}
+    $iban = str_replace (" ", "", $iban);           // replace whitespaces
 	if (isset($_POST['bic'])) {
 		$bic = $_POST['bic'];
 	}
@@ -27,6 +28,7 @@
 			$bic = "";
 		}
 	}
+    $bic = str_replace (" ", "", $bic);             // replace whitespaces
     
 	if (isset($_GET['receiver_name'])) {
 		$receiver_name = str_replace("_", " ", $_GET['receiver_name']);

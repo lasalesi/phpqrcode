@@ -17,7 +17,7 @@
 			$iban = "";
 		}
 	}
-
+    $iban = str_replace (" ", "", $iban);           // replace whitespaces
 	if (isset($_GET['receiver_name'])) {
 		$receiver_name = str_replace("_", " ", $_GET['receiver_name']);
 	} else {
@@ -221,13 +221,13 @@
 				$receiver_pincode . PHP_EOL . 		// receiver postal code
 				$receiver_town . PHP_EOL . 			// receiver town
 				$receiver_country . PHP_EOL . 		// receiver country
-                "S" . PHP_EOL .                     // final receiver address type: S (structured)
-				$final_receiver_name . PHP_EOL . 	// final receiver name
-				$final_receiver_street . PHP_EOL . 	// final receiver street
-				$final_receiver_number . PHP_EOL . 	// final receiver house number
-				$final_receiver_pincode . PHP_EOL .	// final receiver postal code
-				$final_receiver_town . PHP_EOL . 	// final receiver town
-				$final_receiver_country . PHP_EOL . // final receiver country 
+                "". PHP_EOL .       // only future use "S" . PHP_EOL .                     // final receiver address type: S (structured)
+				"". PHP_EOL .       // only future use $final_receiver_name . PHP_EOL . 	// final receiver name
+				"". PHP_EOL .       // only future use $final_receiver_street . PHP_EOL . 	// final receiver street
+				"". PHP_EOL .       // only future use $final_receiver_number . PHP_EOL . 	// final receiver house number
+				"". PHP_EOL .       // only future use $final_receiver_pincode . PHP_EOL .	// final receiver postal code
+				"". PHP_EOL .       // only future use $final_receiver_town . PHP_EOL . 	// final receiver town
+				"". PHP_EOL .       // only future use $final_receiver_country . PHP_EOL . // final receiver country 
 				$amount . PHP_EOL . 				// payment details: amount
 				$currency . PHP_EOL . 				// payment details: currency
 				// $due_date . PHP_EOL . 			// payment details: due date (dropped in v2)
