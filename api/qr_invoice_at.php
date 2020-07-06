@@ -36,10 +36,6 @@
 		$receiver_name = "";
 	}
 
-    else
-    {
-		$receiver_country = "";
-	}
 	if (isset($_GET['amount']))
     {
 		$amount = $_GET['amount'];
