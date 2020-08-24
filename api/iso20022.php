@@ -118,9 +118,12 @@
     }
     else
     {
-		$amount = "";
+		$amount = "0";
 	}
-	if (isset($_GET['currency']))
+    /* assure that currency value has two decimals */
+    $float_amount  = floatval($amount);
+    $amount = number_format((float)$float_amount, 2, '.', '');
+    if (isset($_GET['currency']))
     {
 		$currency = $_GET['currency'];
     }
